@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:taskati_application/features/login/presentation/ui/login_screen.dart';
+import 'package:taskati_application/core/routes/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,8 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigateToLoginScreen ()async{
-   await Future.delayed(Duration(seconds: 3));
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginScreen()), (e)=>false);
+   await Future.delayed(Duration(seconds: 3),(){
+   Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (e)=>false);
+   });
   }
 
   Widget build(BuildContext context) {
