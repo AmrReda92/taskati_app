@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController nameController = TextEditingController();
   final ImagePicker picker = ImagePicker();
    XFile? photo ;
    XFile? image ;
@@ -31,6 +32,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   ),
                   Divider(height: 100.h,color: Colors.grey,indent: 30.w,endIndent: 30.w,),
-                  CustomTextFormField(hintText: "Enter Your Name"),
+                  CustomTextFormField(
+                    controller: nameController,
+                    hintText: "Enter Your Name",
+
+                  ),
                   SizedBox(height: 100.h,),
                   CustomButton(text: "Save"),
 

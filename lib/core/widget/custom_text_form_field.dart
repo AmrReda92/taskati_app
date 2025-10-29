@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText ;
-  const CustomTextFormField({super.key, required this.hintText});
+  final TextEditingController? controller;
+  const CustomTextFormField({super.key, required this.hintText, this.controller});
 
 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
