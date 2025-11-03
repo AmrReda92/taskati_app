@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati_application/core/costant/app_string.dart';
+import 'package:taskati_application/core/routes/routes.dart';
 import 'package:taskati_application/core/theme/app_style.dart';
 import 'package:taskati_application/core/theme/cubit/theme_cubit.dart';
 import 'package:taskati_application/core/widget/custom_button.dart';
@@ -48,12 +49,19 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(
                      width: 330.w,
-                      child: CustomButton(text: "+ Add Task"))
+                      child: CustomButton(text: "+ Add Task",onTap: (){
+                        Navigator.pushNamed(context, Routes.addTaskScreen);
+                      },))
                   
                 ],
               ),
-              SizedBox(height: 120.h,),
-              TaskItem(),
+              SizedBox(height: 90.h,),
+              Expanded(
+                child: ListView.separated(
+                    itemBuilder: (context,index)=>TaskItem(),
+                    separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
+                    itemCount: 10),
+              )
 
               
               

@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Divider(height: 100.h,color: Colors.grey,indent: 30.w,endIndent: 30.w,),
                   CustomTextFormField(
                     controller: nameController,
-                    hintText: "Enter Your Name",
+                    labelText: "Enter Your Name",
 
                   ),
                   SizedBox(height: 100.h,),
