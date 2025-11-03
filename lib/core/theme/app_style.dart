@@ -9,4 +9,14 @@ class AppStyle{
     color: Colors.white,
     fontWeight: FontWeight.bold
   );
+  static final TextStyle font36 = TextStyle(
+    fontSize: 36.sp,
+    color: Colors.white,
+    fontWeight: FontWeight.bold
+  );
+  static final TextStyle font26 = TextStyle(
+    fontSize: 26.sp,
+    color: Colors.black,
+    fontWeight: FontWeight.bold
+  );
 }
