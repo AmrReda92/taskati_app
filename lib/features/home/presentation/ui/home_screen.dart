@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:taskati_application/core/costant/app_string.dart';
+import 'package:taskati_application/core/models/task_model.dart';
 import 'package:taskati_application/core/routes/routes.dart';
 import 'package:taskati_application/core/theme/app_style.dart';
 import 'package:taskati_application/core/theme/cubit/theme_cubit.dart';
 import 'package:taskati_application/core/widget/custom_button.dart';
 import 'package:taskati_application/features/home/data/home_repo.dart';
-import 'package:taskati_application/features/home/presentation/models/task_item.dart';
+import 'package:taskati_application/features/home/presentation/widget/task_item.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+
+  const HomeScreen({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +59,9 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 90.h,),
               Expanded(
                 child: ListView.separated(
-                    itemBuilder: (context,index)=>TaskItem(),
+                    itemBuilder: (context,index)=>TaskItem(task: tasks[index],),
                     separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
-                    itemCount: 10),
+                    itemCount: tasks.length),
               )
 
               
