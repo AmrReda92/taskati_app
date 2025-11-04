@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
+import 'package:taskati_application/core/costant/app_images.dart';
 import 'package:taskati_application/core/models/task_model.dart';
 import 'package:taskati_application/core/routes/routes.dart';
 import 'package:taskati_application/core/theme/app_style.dart';
@@ -12,10 +14,15 @@ import 'package:taskati_application/core/widget/custom_button.dart';
 import 'package:taskati_application/features/home/data/home_repo.dart';
 import 'package:taskati_application/features/home/presentation/widget/task_item.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
   const HomeScreen({super.key,});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,22 +57,31 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(
                      width: 330.w,
-                      child: CustomButton(text: "+ Add Task",onTap: (){
-                        Navigator.pushNamed(context, Routes.addTaskScreen);
+                      child: CustomButton(text: "+ Add Task",
+                         onTap: ()async{
+                       await  Navigator.pushNamed(context, Routes.addTaskScreen);
+                       setState(() {
+
+                       });
+
                       },))
-                  
+
                 ],
               ),
               SizedBox(height: 90.h,),
-              Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context,index)=>TaskItem(task: tasks[index],),
-                    separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
-                    itemCount: tasks.length),
+              Visibility(
+                visible: tasks.isNotEmpty,
+                  child: Expanded(
+                    child: ListView.separated(
+                        itemBuilder: (context,index)=>TaskItem(task: tasks[index],),
+                        separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
+                        itemCount: tasks.length),
+                  ),
+              replacement: Lottie.asset(AppImages.noTask),
               )
 
-              
-              
+
+
             ],
           ),
         ),

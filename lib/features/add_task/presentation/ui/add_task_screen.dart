@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:taskati_application/core/models/task_model.dart';
 import 'package:taskati_application/core/theme/app_style.dart';
 import 'package:taskati_application/core/widget/custom_button.dart';
@@ -65,7 +66,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 labelText: "Date",
                 suffixIcon: Icon(Icons.date_range),
                 onTap: (){
-                 showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime(2030));
+                 showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime(2030)).then((v)
+                 {
+                   dateController.text= DateFormat.yMMMd().format(v!);
+                 }
+                 );
+
+
                 },
               ),
               Row(
@@ -78,7 +85,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     readOnly: true,
                     suffixIcon: Icon(Icons.watch),
                     onTap: (){
-                      showTimePicker(context: context, initialTime: TimeOfDay.now()) ;
+                      showTimePicker(context: context, initialTime: TimeOfDay.now()).then((v)
+                      {
+                        startController.text=(v!).format(context);
+                      }
+                      ) ;
                     },
                   )
                   ),
@@ -90,7 +101,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     readOnly: true,
                     suffixIcon: Icon(Icons.watch),
                     onTap: (){
-                      showTimePicker(context: context, initialTime: TimeOfDay.now());
+                      showTimePicker(context: context, initialTime: TimeOfDay.now()).then((v)
+                      {
+                        endController.text =(v!).format(context);
+                      }
+                      );
                     },
                   ),
                   )
@@ -121,8 +136,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                    description: desController.text,
                    date: dateController.text,
                    startTime: startController.text,
-                   endTime: endController.text)
+                   endTime: endController.text
+               )
                );
+               Navigator.pop(context);
 
                 },
                   text: "Create Task")
