@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taskati_application/core/routes/routes.dart';
+import 'package:taskati_application/features/add_task/presentation/cubit/add_task_cubit.dart';
 import 'package:taskati_application/features/add_task/presentation/ui/add_task_screen.dart';
 import 'package:taskati_application/features/home/presentation/ui/home_screen.dart';
 import 'package:taskati_application/features/login/presentation/cubit/login_cubit.dart';
@@ -21,10 +22,14 @@ class AppRoutes {
             ),
         );
       case Routes.homeScreen :
-        return MaterialPageRoute(builder: (_)=>HomeScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
 
       case Routes.addTaskScreen :
-        return MaterialPageRoute(builder: (_)=>AddTaskScreen());
+        return MaterialPageRoute(builder: (_) =>
+            BlocProvider(
+              create: (context) => AddTaskCubit(),
+              child: AddTaskScreen(),
+            ));
     }
   }
 

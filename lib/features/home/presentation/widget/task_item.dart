@@ -15,7 +15,7 @@ class TaskItem extends StatelessWidget {
       padding: EdgeInsetsGeometry.all(40.h.w),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: task?.color,
+          color: Color(task?.color??0,),
           borderRadius: BorderRadius.circular(16)
       ),child:
     Row(

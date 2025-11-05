@@ -11,6 +11,7 @@ import 'package:taskati_application/core/routes/routes.dart';
 import 'package:taskati_application/core/theme/app_style.dart';
 import 'package:taskati_application/core/theme/cubit/theme_cubit.dart';
 import 'package:taskati_application/core/widget/custom_button.dart';
+import 'package:taskati_application/features/add_task/data/repo/task_repo.dart';
 import 'package:taskati_application/features/home/data/home_repo.dart';
 import 'package:taskati_application/features/home/presentation/widget/task_item.dart';
 
@@ -23,6 +24,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    TaskRepo.getTasks();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

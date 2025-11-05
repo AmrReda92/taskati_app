@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 part 'task_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class TaskModel extends HiveObject {
 
   @HiveField(0)
@@ -18,7 +18,7 @@ class TaskModel extends HiveObject {
   @HiveField(4)
   final String endTime ;
   @HiveField(5)
-  final Color color;
+  final int color;
   @HiveField(6)
   final String status;
 
@@ -28,5 +28,6 @@ class TaskModel extends HiveObject {
 }
 
 List<TaskModel> tasks =[
+
 
   ];
