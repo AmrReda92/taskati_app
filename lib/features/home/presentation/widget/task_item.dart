@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:taskati_application/core/models/task_model.dart';
 
 import '../../../../core/theme/app_style.dart';

@@ -17,6 +17,7 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  var formKey = GlobalKey <FormState>();
   var titleController = TextEditingController();
   var desController = TextEditingController();
   var dateController = TextEditingController();
@@ -50,121 +51,166 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: SingleChildScrollView(
-            child: Column(
-              spacing: 40.h,
-              children: [
-                SizedBox(height: 60.h,),
-                CustomTextFormField(
-                  controller: titleController,
-                  labelText: "Enter title",
-                ),
-                CustomTextFormField(
-                  controller: desController,
-                  labelText: "Enter description",
-                  maxLine: 5,
-                ),
-                CustomTextFormField(
-                  controller: dateController,
-                  readOnly: true,
-                  labelText: "Date",
-                  suffixIcon: Icon(Icons.date_range),
-                  onTap: () {
-                    showDatePicker(context: context,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2030)).then((v) {
-                      dateController.text = DateFormat.yMMMd().format(v!);
-                    }
-                    );
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child:
-                    CustomTextFormField(
-                      controller: startController,
-                      labelText: "Start Time",
-                      readOnly: true,
-                      suffixIcon: Icon(Icons.watch),
-                      onTap: () {
-                        showTimePicker(context: context, initialTime: TimeOfDay
-                            .now()).then((v) {
-                          startController.text = (v!).format(context);
-                        }
-                        );
-                      },
-                    )
-                    ),
-                    SizedBox(width: 30.w,),
-                    Expanded(child:
-                    CustomTextFormField(
-                      controller: endController,
-                      labelText: "End Time",
-                      readOnly: true,
-                      suffixIcon: Icon(Icons.watch),
-                      onTap: () {
-                        showTimePicker(context: context, initialTime: TimeOfDay
-                            .now()).then((v) {
-                          endController.text = (v!).format(context);
-                        }
-                        );
-                      },
-                    ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 100.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) =>
-                        ItemColor(
-                          color: taskColor[index],
-                          isActive: index == activeColor,
-                          onTap: () {
-                            setState(() {
-                              activeColor = index;
-                            });
-                          },
-                        ),
-                    separatorBuilder: (context, index) =>
-                        SizedBox(width: 26.w,),
-                    itemCount: taskColor.length,),
-                ),
-                SizedBox(height: 180.h,),
-                BlocListener<AddTaskCubit, AddTaskState>(
-                  listener: (context, state) {
-                    if(state is AddTaskLoading){
-                      showDialog(context: context, builder: (context)=>Center(child: CircularProgressIndicator()));
-                    }
-                    else if(state is AddTaskSuccess){
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: CustomButton(text: "Create Task",
+            child: Form(
+              key: formKey,
+              child: Column(
+                spacing: 40.h,
+                children: [
+                  SizedBox(height: 60.h,),
+                  CustomTextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value){
+                      if(value==null || value.isEmpty ){
+                        return "Title is required";
+                      }
+                      return null;
+                    },
+                    controller: titleController,
+                    labelText: "Enter title",
+                  ),
+                  CustomTextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+
+                    validator: (value){
+                      if(value==null || value.isEmpty){
+                        return "description is required";
+                      }
+                      return null;
+                    },
+                    controller: desController,
+                    labelText: "Enter description",
+                    maxLine: 5,
+                  ),
+                  CustomTextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+
+                    validator: (value){
+                      if(value==null || value.isEmpty){
+                        return "date is required";
+                      }
+                      return null;
+                    },
+                    controller: dateController,
+                    readOnly: true,
+                    labelText: "Date",
+                    suffixIcon: Icon(Icons.date_range),
                     onTap: () {
-                      tasks.add(TaskModel(
-                          color: taskColor[activeColor].toARGB32(),
-                          title: titleController.text,
-                          description: desController.text,
-                          date: dateController.text,
-                          startTime: startController.text,
-                          endTime: endController.text
-                      )
+                      showDatePicker(context: context,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2030)).then((v) {
+                        dateController.text = DateFormat.yMMMd().format(v!);
+                      }
                       );
-                      context.read<AddTaskCubit>().addTask(TaskModel(
-                          color: taskColor[activeColor].toARGB32(),
-                          title: titleController.text,
-                          description: desController.text,
-                          date: dateController.text,
-                          startTime: startController.text,
-                          endTime: endController.text
-                      ));
                     },
                   ),
-                )
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child:
+                      CustomTextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+
+                        validator: (value){
+                          if(value==null || value.isEmpty){
+                            return "start time is required";
+                          }
+                          return null;
+                        },
+                        controller: startController,
+                        labelText: "Start Time",
+                        readOnly: true,
+                        suffixIcon: Icon(Icons.watch),
+                        onTap: () {
+                          showTimePicker(context: context, initialTime: TimeOfDay
+                              .now()).then((v) {
+                            startController.text = (v!).format(context);
+                          }
+                          );
+                        },
+                      )
+                      ),
+                      SizedBox(width: 30.w,),
+                      Expanded(child:
+                      CustomTextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+
+                        validator: (value){
+                          if(value==null || value.isEmpty){
+                            return "end time is required";
+                          }
+                          return null;
+                        },
+                        controller: endController,
+                        labelText: "End Time",
+                        readOnly: true,
+                        suffixIcon: Icon(Icons.watch),
+                        onTap: () {
+                          showTimePicker(context: context, initialTime: TimeOfDay
+                              .now()).then((v) {
+                            endController.text = (v!).format(context);
+                          }
+                          );
+                        },
+                      ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 100.h,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>
+                          ItemColor(
+                            color: taskColor[index],
+                            isActive: index == activeColor,
+                            onTap: () {
+                              setState(() {
+                                activeColor = index;
+                              });
+                            },
+                          ),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(width: 26.w,),
+                      itemCount: taskColor.length,),
+                  ),
+                  SizedBox(height: 180.h,),
+                  BlocListener<AddTaskCubit, AddTaskState>(
+                    listener: (context, state) {
+                      if(state is AddTaskLoading){
+                        showDialog(context: context, builder: (context)=>Center(child: CircularProgressIndicator()));
+                      }
+                      else if(state is AddTaskSuccess){
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: CustomButton(text: "Create Task",
+                      onTap: () {
+                        tasks.add(TaskModel(
+                            color: taskColor[activeColor].toARGB32(),
+                            title: titleController.text,
+                            description: desController.text,
+                            date: dateController.text,
+                            startTime: startController.text,
+                            endTime: endController.text
+                        )
+                        );
+                        if(formKey.currentState!.validate()) {
+                        context.read<AddTaskCubit>().addTask(TaskModel(
+                        color: taskColor[activeColor].toARGB32(),
+                        title: titleController.text,
+                        description: desController.text,
+                        date: dateController.text,
+                        startTime: startController.text,
+                        endTime: endController.text
+                        ));
+                        }
+
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         )

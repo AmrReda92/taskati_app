@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskati_application/core/routes/app_routs.dart';
 import 'package:taskati_application/core/routes/routes.dart';
 import 'package:taskati_application/core/theme/cubit/theme_cubit.dart';
-import 'package:taskati_application/features/login/presentation/ui/login_screen.dart';
-import 'package:taskati_application/features/splash/presentation/ui/splash_screen.dart';
 
 class TaskatiApp extends StatelessWidget {
   const TaskatiApp({super.key});

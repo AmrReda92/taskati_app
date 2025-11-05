@@ -5,6 +5,8 @@ class CustomTextFormField extends StatelessWidget {
   final String labelText ;
   final int maxLine ;
   final bool readOnly ;
+  final AutovalidateMode? autovalidateMode ;
+  final String? Function(String?)? validator;
   final Widget? suffixIcon;
    final void Function()? onTap;
   final TextEditingController? controller;
@@ -17,13 +19,14 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly=false,
     this.suffixIcon,
     this.onTap,
+    this.validator, this.autovalidateMode,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode:autovalidateMode ,
+      validator: validator ,
       onTap: onTap ,
       readOnly: readOnly ,
       maxLines: maxLine,
