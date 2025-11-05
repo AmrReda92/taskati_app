@@ -19,6 +19,10 @@ class TaskRepo {
    }
   }
 
+  static removeTask(int index)async{
+    await box.deleteAt(index);
+  }
+
   // store tasks in local storage (task hive) to get them back in home screen
  static getTasks () {
    tasks=box.values.toList();

@@ -186,16 +186,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     },
                     child: CustomButton(text: "Create Task",
                       onTap: () {
-                        tasks.add(TaskModel(
-                            color: taskColor[activeColor].toARGB32(),
-                            title: titleController.text,
-                            description: desController.text,
-                            date: dateController.text,
-                            startTime: startController.text,
-                            endTime: endController.text
-                        )
-                        );
                         if(formKey.currentState!.validate()) {
+                          tasks.add(TaskModel(
+                              color: taskColor[activeColor].toARGB32(),
+                              title: titleController.text,
+                              description: desController.text,
+                              date: dateController.text,
+                              startTime: startController.text,
+                              endTime: endController.text
+                          ));
                         context.read<AddTaskCubit>().addTask(TaskModel(
                         color: taskColor[activeColor].toARGB32(),
                         title: titleController.text,
@@ -204,6 +203,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         startTime: startController.text,
                         endTime: endController.text
                         ));
+                        }else {
+                          // تظهر على الشاشة تحذير
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Please complete all fields"))
+                          );
                         }
 
                       },

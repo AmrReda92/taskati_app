@@ -78,13 +78,22 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 90.h,),
               Visibility(
                 visible: tasks.isNotEmpty,
+              replacement: Lottie.asset(AppImages.noTask),
                   child: Expanded(
                     child: ListView.separated(
-                        itemBuilder: (context,index)=>TaskItem(task: tasks[index],),
+                        itemBuilder: (context,index)=>Dismissible(
+                            key: UniqueKey(),
+                            confirmDismiss: (Direction)async{
+                              TaskRepo.removeTask(index);
+                              tasks.removeAt(index);
+                              setState(() {
+
+                              });
+                            },
+                            child: TaskItem(task: tasks[index],)),
                         separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
                         itemCount: tasks.length),
                   ),
-              replacement: Lottie.asset(AppImages.noTask),
               )
 
 
